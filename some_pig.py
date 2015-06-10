@@ -15,11 +15,9 @@ class Player:
         return random.randint(1,6)
 
     def turn(self):
-
-        throws = 0
         possible_points = 0
+        throws = 0
         while throws < self.set_rolls:
-
             temp_roll = self.roll
             if temp_roll == 1:
                 possible_points = possible_points - possible_points
@@ -32,30 +30,15 @@ class Player:
 
     @property
     def turn_data(self):
-        return (self.set_rolls, self.points)
+        return self.points
 
 
     def run(self):
         for _ in range(7):
             self.turn()
             self.data_list.append(self.turn_data)
-        return self.data_list
+        return sum(self.data_list[-1:])
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-player = Player()
-player.set_rolls = 6
-print(player.run())
