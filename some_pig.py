@@ -2,49 +2,60 @@ import random
 
 class Player:
 
+
+
     def __init__(self):
-        self.set_rolls = 32
+        self.set_rolls = 1
         self.points = 0
+        self.data_list = []
+
 
     @property
     def roll(self):
         return random.randint(1,6)
 
     def turn(self):
-        possible_points = 0
+
         throws = 0
+        possible_points = 0
         while throws < self.set_rolls:
-            if self.roll == 1:
+
+            temp_roll = self.roll
+            if temp_roll == 1:
                 possible_points = possible_points - possible_points
                 break
-            elif self.roll > 1:
-                possible_points = possible_points + self.roll
-            self.points = self.points + possible_points
-        return self.points
+            elif temp_roll > 1:
+                possible_points = possible_points + temp_roll
+                throws = throws + 1
+
+        self.points = self.points + possible_points
+
+    @property
+    def turn_data(self):
+        return (self.set_rolls, self.points)
+
+
+    def run(self):
+        for _ in range(7):
+            self.turn()
+            self.data_list.append(self.turn_data)
+        return self.data_list
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 player = Player()
-player.turn()
-
-
-class Game:
-
-    def __init__(self):
-        pass
-
-    def roll(self):
-        return random.randint(1,6)
-
-    def turn(self):
-        pass
-
-    def hold(self):
-        pass
-
-
-
-
-
-
+player.set_rolls = 6
+print(player.run())
